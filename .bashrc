@@ -8,8 +8,14 @@ case $- in
       *) return;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
+git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+export PS1="[\u@\h \W]\$(git_branch)\$ "
+
+
+
 HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
@@ -99,6 +105,7 @@ alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
 alias untar='tar -zxvf '
 alias wget='wget -c '
+alias top='bpytop'
 alias dime-up='docker-compose -p $(pwd | rev | cut -d '/' -f 2 | rev) up'
 alias dime-down='docker-compose -p $(pwd | rev | cut -d '/' -f 2 | rev) down --volumes'
 alias dime-pull='docker-compose -p $(pwd | rev | cut -d '/' -f 2 | rev) pull'
