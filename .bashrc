@@ -192,6 +192,9 @@ extract () {
 function hs {
 	history | grep $1
 }
+function allowRun {
+	chmod a+x $1
+}
 
 # #######################################
 # Docker Functions
