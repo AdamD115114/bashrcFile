@@ -106,13 +106,16 @@ alias nowdate='date +"%d-%m-%Y"'
 alias untar='tar -zxvf '
 alias wget='wget -c '
 alias top='bpytop'
+alias ports='netstat -tulanp'
 alias dime-up='docker-compose -p $(pwd | rev | cut -d '/' -f 2 | rev) up'
 alias dime-down='docker-compose -p $(pwd | rev | cut -d '/' -f 2 | rev) down --volumes'
 alias dime-pull='docker-compose -p $(pwd | rev | cut -d '/' -f 2 | rev) pull'
 alias dime-deploy='docker-compose up -p $(pwd | rev | cut -d '/' -f 2 | rev) --detach --build webapp dywa-app'
 alias dime-clean='docker-compose -p $(pwd | rev | cut -d '/' -f 2 | rev) down --volumes'
-alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade'
+alias dime-build='docker-compose -p $(pwd | rev | cut -d '/' -f 2 | rev)  up --build'
+alias update='sudo apt-get --yes update && sudo apt-get --yes upgrade && sudo apt-get dist-upgrade'
 
+alias l.='ls -d .* -human-readable --color=auto --size -1 -S --classify'
 # #######################################
 # Docker Alias
 # #######################################
@@ -138,7 +141,7 @@ alias dsp="docker system prune --all"
 alias dsr=dsr-fn
 alias ddi='docker rmi -f $(docker images --filter "dangling=true" -q --no-trunc)'
 alias l.='ls -d .* --color=auto'
-
+alias find='fzf'
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
@@ -267,6 +270,17 @@ function d-aws-cli-fn {
            -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
            amazon/aws-cli:latest $1 $2 $3
 }
+
+function backup {
+	filename = popos.$(nowdate)
+	zip -r ~/Transfers/filename ~/BackUps/
+	scp ~/Transfers/filename adam@192.168.1.18:/D:/VMBackups/filename
+}
+
+
+
+
+
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
